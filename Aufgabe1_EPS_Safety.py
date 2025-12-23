@@ -1,15 +1,15 @@
 import pytest
-from steering_system import calculate_steering_assist
+from Aufgabe1_Steering_System import calculate_steering_assist
 
 # Test Data: (Speed, Torque, Expected_Assist)
 test_cases = [
     (100, 5, 10.0),   # Normal operation
-    (249, 25, 0.0),   # Boundary: Just below limit
-    (250, 5, 10.0),
-    (255, 25, 0.0),   # Boundary: At limit
+    (249, 25, 0.0),   # Boundary: Torque Over Limit
+    (250, 5, 10.0),   # Boundary: Speed just below limit
+    (255, 25, 0.0),   # Boundary: Speed over limit, Torque over limit
     (251, 5, 0.0),    # SAFETY TRIGGER: Just above limit
     (300, 2, 0.0),     # Extreme overspeed
-    (275, 25, 0.0)
+    (275, 25, 0.0)    # Boundary: Speed over limit, Torque over limit
 ]
 
 @pytest.mark.parametrize("speed, torque, expected", test_cases)
