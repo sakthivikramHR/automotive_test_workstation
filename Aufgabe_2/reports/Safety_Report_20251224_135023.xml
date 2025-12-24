@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="4" time="0.163" timestamp="2025-12-24T13:50:23.234000+05:30" hostname="DESKTOP-H1JDNV0"><testcase classname="Aufgabe2_Traceability" name="test_thermal_shutdown_requirement" time="0.001" /><testcase classname="Aufgabe2_Traceability" name="test_overvoltage_fault_requirement" time="0.001" /><testcase classname="Aufgabe2_Traceability" name="test_normal_fault_requirement" time="0.002"><failure message="AssertionError: assert 'SHUTDOWN' == 'COMPLETELY NORMAL'&#10;  &#10;  #x1B[0m#x1B[91m- COMPLETELY NORMAL#x1B[39;49;00m#x1B[90m#x1B[39;49;00m&#10;  #x1B[92m+ SHUTDOWN#x1B[39;49;00m#x1B[90m#x1B[39;49;00m">bms = &lt;Aufgabe2_BMS_ECU.BatteryManagementSystem object at 0x000001D705EA1090&gt;
+
+    def test_normal_fault_requirement(bms):
+        """Verify REQ_BMS_003: Normal"""
+        # Test Step: Have both temperature and voltage under limits
+        bms.process_telemetry(temp=75, voltage=4.1)
+    
+        status = bms.get_status()
+    
+&gt;       assert status["state"] == "COMPLETELY NORMAL"
+E       AssertionError: assert 'SHUTDOWN' == 'COMPLETELY NORMAL'
+E         
+E         #x1B[0m#x1B[91m- COMPLETELY NORMAL#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+E         #x1B[92m+ SHUTDOWN#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+
+Aufgabe2_Traceability.py:44: AssertionError</failure></testcase><testcase classname="Aufgabe2_Traceability" name="test_undervoltage_fault_requirement" time="0.001" /></testsuite></testsuites>
