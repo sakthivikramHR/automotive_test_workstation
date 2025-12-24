@@ -1,9 +1,9 @@
 import pytest
 import json
-from Aufgabe2_BMS_ECU import BatteryManagementSystem
+from BMS_ECU import BatteryManagementSystem
 
 # Load requirements for reporting
-with open("Aufgabe2_requirements.json") as f:
+with open("Requirements.json") as f:
     REQS = json.load(f)
 
 @pytest.fixture
@@ -34,25 +34,25 @@ def test_overvoltage_fault_requirement(bms):
     assert status["contactors"] is False
     print(f"\nVerified {REQS['REQ_BMS_002']}")
 
-def test_normal_fault_requirement(bms):
-    """Verify REQ_BMS_003: Normal"""
-    # Test Step: Have both temperature and voltage under limits
-    bms.process_telemetry(temp=25, voltage=4.1)
+def test_undervoltage_fault_requirement(bms):
+    """Verify REQ_BMS_003: Fault on low voltage."""
+    # Test Step: Inject 1.8V
+    bms.process_telemetry(temp=30, voltage=1.8)
     
     status = bms.get_status()
     
-    assert status["state"] == "COMPLETELY NORMAL"
+    assert status["state"] == "UNDERVOLTAGE_FAULT"
     assert status["contactors"] is False
     print(f"\nVerified {REQS['REQ_BMS_003']}")
 
 
-def test_undervoltage_fault_requirement(bms):
-    """Verify REQ_BMS_004: Undervoltage"""
-    # Test Step: Have both temperature and voltage under limits
-    bms.process_telemetry(temp=45, voltage=2.3)
+def test_low_temperature_fault_requirement(bms):
+    """Verify REQ_BMS_004: Fault on low temperature."""
+    # Test Step: Inject 18 degrees
+    bms.process_telemetry(temp=18, voltage=3)
     
     status = bms.get_status()
     
-    assert status["state"] == "COMPLETELY NORMAL"
+    assert status["state"] == "LOW_TEMPERATURE_FAULT"
     assert status["contactors"] is False
     print(f"\nVerified {REQS['REQ_BMS_004']}")

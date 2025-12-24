@@ -1,0 +1,6 @@
+{
+    "REQ_BMS_001": "If cell temperature exceeds 60°C, the BMS must enter SHUTDOWN state.",
+    "REQ_BMS_002": "If cell voltage exceeds 4.2V, the BMS must enter OVERVOLTAGE_FAULT state.",
+    "REQ_BMS_003": "If cell voltage is below 2.5V, the BMS must enter UNDERVOLTAGE_FAULT state.",
+    "REQ_BMS_004": "If cell temperature is below 20°C, the BMS must enter LOW_TEMPERATURE_FAULT state."
+}

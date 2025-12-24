@@ -13,7 +13,7 @@ def run_safety_suite():
     exit_code = pytest.main([
         "-v", 
         f"--junitxml=reports/{report_name}", 
-        "Aufgabe2_Traceability.py"
+        "Traceability.py"
     ])
     
     if exit_code == 0:
