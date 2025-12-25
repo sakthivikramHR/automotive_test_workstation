@@ -10,11 +10,10 @@ def test_erroneous_signal_jump(bms):
     # Normal Temperature    
     bms.process_telemetry(25, 3.7)
     assert bms.state == "NORMAL"
-    
     # Inject a Impossible jump
     # A real sensor jumps from 25 to 150
     bms.process_telemetry(150, 3.7)    
-    assert bms.state == "EXTREME_SHUTDOWN"
+    assert bms.state == "EXTREME_VALUE_FORCED_SHUTDOWN"
     print(f"\n[PASSED] ECU entered {bms.state} state on extreme temperature jump.")
 
 def test_sensor_timeout_simulation(bms):

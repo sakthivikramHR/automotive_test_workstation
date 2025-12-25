@@ -6,7 +6,7 @@ class BatteryManagementSystem:
     def process_telemetry(self, temp, voltage):
         """Processes sensor data and updates system state."""
 
-        # Logic for Communication Problems 
+        # Logic for Communication Problems --> (ALIV/CRC/CHL Failures) 
         if temp is None or voltage is None: 
             self.state = "SENSOR_ERROR"
             self.contactors_closed = False
@@ -20,7 +20,7 @@ class BatteryManagementSystem:
         
         # Safety Logic for Temperature
         if temp > 120:
-            self.state = "EXTREME_SHUTDOWN"
+            self.state = "EXTREME_VALUE_FORCED_SHUTDOWN"
             self.contactors_closed = False
             return
         
