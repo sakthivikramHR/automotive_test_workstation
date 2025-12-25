@@ -1,6 +1,6 @@
 import can
 import cantools
-from Fault_Identification_BMS.BMS_ECU import BatteryManagementSystem 
+from BMS_ECU_Logic import BatteryManagementSystem
 
 # Load DBC and Initialize BMS Logic
 db = cantools.database.load_file('battery.dbc')
