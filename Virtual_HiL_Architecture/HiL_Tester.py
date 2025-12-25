@@ -7,16 +7,13 @@ bus = can.interface.Bus('v-hil-bus', bustype='virtual')
 
 def inject_fault(test_name, temp, voltage):
     print(f"\nRunning Test: {test_name}")
-    
-    # 1. Pack the data based on DBC
+        
     data = db.encode_message('BMS_Status', {'BatteryTemp': temp, 'BatteryVoltage': voltage})
-    
-    # 2. Send the CAN message
+        
     msg = can.Message(arbitration_id=500, data=data, is_extended_id=False)
     bus.send(msg)
     print(f"Tester TX: Sent {temp}degC, {voltage}V")
-    
-    # Give the "ECU" a moment to process
+        
     time.sleep(0.5)
 
 if __name__ == "__main__":
