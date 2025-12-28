@@ -63,3 +63,12 @@ class BatteryManagementSystem:
 
     def get_status(self):
         return {"state": self.state, "contactors": self.contactors_closed}
+
+    def process_telemetry_crc(self, temperature, voltage, checksum):
+
+        expected_checksum = int(temperature + voltage) if temperature and voltage else 0
+        
+        if checksum != expected_checksum:
+            self.state = "CRC_COMMUNICATION_ERROR"
+            self.contactors_closed = False
+            return
